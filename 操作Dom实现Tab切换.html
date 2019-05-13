@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #Div {
+            width: 400px;
+        }
+
+        .taxon {
+            background: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="Div"></div>
+    <script>
+        //js代码。
+        function switcHover(cLass, butL, divL) {
+            //获取到最外层的的元素。
+            var outerDiv = document.getElementById('Div');
+            //新建一个Div元素，用来盛放button元素。
+            var newDiv = document.createElement('div');
+            //通过循环决定新建多少button元素。
+            for (var j = 0; j < butL.length; j++) {
+                var newButton = document.createElement('button');
+                //给button元素设置样式
+                newButton.style.width = '80px';
+                newButton.style.height = '40px';
+                newButton.innerHTML = butL[j]
+                //把建好的botton元素添加到新建的Div元素中
+                newDiv.append(newButton);
+                //通过自执行函数来进行记录的步骤。传两个值，一个为下标，另一个为类名。
+                (function (j, cLass) {
+                    //获取button元素以及div元素的集合。
+                    var buttonGather = document.getElementsByTagName('button');
+                    var divGather = document.getElementsByTagName('div');
+                    //点击事件。注意是给新建的button元素添加点击事件。
+                    newButton.onclick = function () {
+                        //通过循环清除类以及隐藏。
+                        for (var k = 0; k < buttonGather.length; k++) {
+                            buttonGather[k].className = '';
+                            //因为添加好的div元素比button元素多两个。所以取对应的元素就需要下标+2.
+                            divGather[k + 2].style.display = 'none'
+                        }
+                        //加类以及显示。
+                        buttonGather[j].className = cLass;
+                        divGather[j + 2].style.display = 'block'
+                    }
+                })(j, cLass)
+                //把处理好的div元素添加到最外层元素中
+                outerDiv.append(newDiv);
+            }
+            //通过循环决定新建几个div。建议和button元素一致。以用来点击切换对应的元素。
+            for (var i = 0; i < divL.length; i++) {
+                var _newDiv = document.createElement('div');
+                //设置样式
+                _newDiv.style.width = '100%';
+                _newDiv.style.height = '100px';
+                _newDiv.style.background = 'blue';
+                _newDiv.innerText = divL[i];
+                //默认为隐藏，点击的时候出现
+                _newDiv.style.display = 'none';
+                //把新建好的div添加到最外层的div中（自行选择添加到那个div中）
+                outerDiv.append(_newDiv);
+            }
+        }
+        switcHover('taxon', [11, 22, 33], ['Hello', 'Word', 'Good']);
+    </script>
+    <!-- <script>
+        //页面加载完成以后去运行函数。
+        window.onload = function () {
+        // 因为新建的函数式挂在window上，，所以可以直接调用。
+        // 相当于window.ziJi('actve', [11, 22, 33], ['Hello', 'Word', 'Good']);            
+        window.ziJi('actve', [11, 22, 33], ['Hello', 'Word', 'Good']);
+        }
+    </script> -->
+</body>
+
+</html>
